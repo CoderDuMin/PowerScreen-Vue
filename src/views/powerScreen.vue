@@ -2,7 +2,9 @@
 <template>
   <div class="power-screen">
     <div class="header"></div>
-    <div class="left-top"></div>
+    <div class="left-top">
+      <PieEcharts></PieEcharts>
+    </div>
     <div class="left-bottom"></div>
     <div class="right-top"></div>
     <div class="right-center"></div>
@@ -11,7 +13,8 @@
     <div class="bottom"></div>
   </div>
 </template>
-<script>
+<script setup>
+import PieEcharts from '@/components/pieEcharts.vue'
 </script>
 
 <style scoped lang="scss">
