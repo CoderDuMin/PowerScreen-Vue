@@ -5,7 +5,9 @@
     <div class="left-top">
       <PieEcharts></PieEcharts>
     </div>
-    <div class="left-bottom"></div>
+    <div class="left-bottom">
+      <LineCharts></LineCharts>
+    </div>
     <div class="right-top"></div>
     <div class="right-center"></div>
     <div class="right-bottom"></div>
@@ -15,6 +17,7 @@
 </template>
 <script setup>
 import PieEcharts from '@/components/pieEcharts.vue'
+import LineCharts from '@/components/lineCharts.vue'
 </script>
 
 <style scoped lang="scss">
