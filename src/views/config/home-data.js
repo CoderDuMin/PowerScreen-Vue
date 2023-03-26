@@ -2,37 +2,37 @@
 export const chargingPileData = [
   {
     value: 0,
-    name: "广州占比",
+    name: "福州占比",
     percentage: "0%",
     color: "#34D160",
   },
   {
     value: 0,
-    name: "深圳占比",
+    name: "厦门占比",
     percentage: "0%",
     color: "#027FF2",
   },
   {
     value: 0,
-    name: "东莞占比",
+    name: "三明占比",
     percentage: "0%",
     color: "#8A00E1",
   },
   {
     value: 0,
-    name: "佛山占比",
+    name: "宁德占比",
     percentage: "0%",
     color: "#F19610",
   },
   {
     value: 0,
-    name: "中山占比",
+    name: "漳州占比",
     percentage: "0%",
     color: "#6054FF",
   },
   {
     value: 0,
-    name: "珠海占比",
+    name: "莆田占比",
     percentage: "0%",
     color: "#00C6FF",
   },
@@ -139,27 +139,27 @@ export const dataAnalysisData = [
 export const chargingTop4Data = [
   {
     id: 1,
-    name: "深圳",
+    name: "福州",
     percentage: "0%",
   },
   {
     id: 2,
-    name: "广州",
+    name: "厦门",
     percentage: "0%",
   },
   {
     id: 3,
-    name: "东莞",
+    name: "三明",
     percentage: "0%",
   },
   {
     id: 4,
-    name: "佛山",
+    name: "宁德",
     percentage: "0%",
   },
   {
     id: 5,
-    name: "其它",
+    name: "其他",
     percentage: "0%",
   },
 ]
