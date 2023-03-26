@@ -4,8 +4,9 @@
 </template>
 
 <script setup>
+import useEchart from '@/hooks/useEchart';
 import * as echarts from 'echarts'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 
 const props = defineProps({
   width:{
@@ -15,55 +16,75 @@ const props = defineProps({
   height:{
     type:String,
     default:'100%'
+  },
+  saturationRatioData:{
+    type:Array,
+    default(){
+      return []
+    }
   }
 })
 const pieRef = ref()
+let myChart = null
 
 onMounted(() => {
-  let myEchart = echarts.init(pieRef.value,null,{renderer:'svg'})
-  let options = getOption()
-  myEchart.setOption(options)
+  myChart = useEchart(pieRef.value)
+  let options = getOption(props.saturationRatioData)
+  myChart.setOption(options)
 })
 
-const getOption = () => {
-      let pieDatas = [
-      {
-        value: 100,
-        name: "广州占比",
-        percentage: "5%",
-        color: "#34D160",
-      },
-      {
-        value: 200,
-        name: "深圳占比",
-        percentage: "4%",
-        color: "#027FF2",
-      },
-      {
-        value: 300,
-        name: "东莞占比",
-        percentage: "8%",
-        color: "#8A00E1",
-      },
-      {
-        value: 400,
-        name: "佛山占比",
-        percentage: "10%",
-        color: "#F19610",
-      },
-      {
-        value: 500,
-        name: "中山占比",
-        percentage: "20%",
-        color: "#6054FF",
-      },
-      {
-        value: 600,
-        name: "珠海占比",
-        percentage: "40%",
-        color: "#00C6FF",
-      },
-    ];
+watch(()=>props.saturationRatioData,(newVal) => {
+  if(myChart){
+    let options = getOption(newVal)
+    myChart.setOption(options)
+  }else{
+    myChart = useEchart(pieRef.value)
+    let options = getOption(props.saturationRatioData)
+    myChart.setOption(options)
+  }
+},{
+  deep:true
+})
+
+const getOption = (pieDatas) => {
+    //   let pieDatas = [
+    //   {
+    //     value: 100,
+    //     name: "广州占比",
+    //     percentage: "5%",
+    //     color: "#34D160",
+    //   },
+    //   {
+    //     value: 200,
+    //     name: "深圳占比",
+    //     percentage: "4%",
+    //     color: "#027FF2",
+    //   },
+    //   {
+    //     value: 300,
+    //     name: "东莞占比",
+    //     percentage: "8%",
+    //     color: "#8A00E1",
+    //   },
+    //   {
+    //     value: 400,
+    //     name: "佛山占比",
+    //     percentage: "10%",
+    //     color: "#F19610",
+    //   },
+    //   {
+    //     value: 500,
+    //     name: "中山占比",
+    //     percentage: "20%",
+    //     color: "#6054FF",
+    //   },
+    //   {
+    //     value: 600,
+    //     name: "珠海占比",
+    //     percentage: "40%",
+    //     color: "#00C6FF",
+    //   },
+    // ];
 
     let colors = pieDatas.map((item) => {
       return item.color;

@@ -4,8 +4,9 @@
 </template>
 
 <script setup>
+import useEchart from '@/hooks/useEchart';
 import * as echarts from 'echarts'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 
 const props = defineProps({
   width:{
@@ -15,27 +16,49 @@ const props = defineProps({
   height:{
     type:String,
     default:'100%'
+  },
+  processData:{
+    type:Array,
+    default(){
+      return []
+    }
   }
 })
 const lineRef = ref()
+let myChart = null
 
 onMounted(() => {
-  let myEchart = echarts.init(lineRef.value,null,{renderer:'svg'})
-  let options = getOption()
-  myEchart.setOption(options)
+  myChart = useEchart(lineRef.value)
+  let options = getOption(props.processData)
+  myChart.setOption(options)
+  myChart.resizeEchart()
 })
 
-const getOption = () => {
-  let echartDatas = [
-  {
-      "name": "正常",
-      "data": [25, 15, 2, 18, 30, 40, 30, 32, 35, 27, 23, 16]
-  },
-  {
-      "name": "异常",
-      "data": [15, 18, 12, 28, 20, 13, 20, 12, 25, 10, 9, 5]
+watch(()=>props.processData,(newVal)=>{
+  if(myChart){
+    let options = getOption(newVal)
+    myChart.setOption(options)
+    myChart.resizeEchart()
+  }else{
+    myChart = useEchart(lineRef.value)
+    let options = getOption(props.processData)
+    myChart.setOption(options)
+    myChart.resizeEchart()
   }
-  ]
+
+})
+
+const getOption = (echartDatas) => {
+  // let echartDatas = [
+  // {
+  //     "name": "正常",
+  //     "data": [25, 15, 2, 18, 30, 40, 30, 32, 35, 27, 23, 16]
+  // },
+  // {
+  //     "name": "异常",
+  //     "data": [15, 18, 12, 28, 20, 13, 20, 12, 25, 10, 9, 5]
+  // }
+  // ]
   let option = {
       grid: {
         left: "5%",
